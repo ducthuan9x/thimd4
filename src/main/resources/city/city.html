@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="showAddForm()">ADD</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-name">
+                        <button class="btn btn-outline-success my-2 my-sm-0" onclick="search()">Search</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-3">List</div>
+        <div class="col-9">
+            <h3>List City</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">stt</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">Population</th>
+                    <th scope="col">GDP</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">action</th>
+                </tr>
+                </thead>
+                <tbody id="list">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <form id="addForm">
+                    <label> name</label>
+                    <input type="text" name="name" class="form-control">
+                    <label> country:</label>
+                    <select id="countryId" name="countryId" class="form-control">
+
+                    </select>
+                    <label> area:</label>
+                    <input type="number" name="area" class="form-control">
+                    <label> population:</label>
+                    <input type="number" name="population" class="form-control">
+                    <label> gdp:</label>
+                    <input type="number" name="gdp" class="form-control">
+                    <label> status:</label>
+                    <input type="text" name="status" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="save()"> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">EDIT CITY</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" name="id" id="id">
+                    <label> name</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                    <label> country:</label>
+                    <select id="countryId1" name="countryId"  class="form-control">
+
+                    </select>
+                    <label> area</label>
+                    <input type="number" name="area" id="area" class="form-control">
+                    <label> population</label>
+                    <input type="number" name="population" id="population" class="form-control">
+                    <label> name</label>
+                    <input type="number" name="gdp" id="gdp" class="form-control">
+                    <label> name</label>
+                    <input type="text" name="status" id="status" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="update()"> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">DELETE CITY</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="deleteForm">
+                    <input type="hidden" name="id" id="id1">
+                    <label> name</label>
+                    <input type="text" name="name" id="name1" class="form-control">
+                    <label> country:</label>
+                    <select id="countryId2" name="countryId"  class="form-control">
+
+                    </select>
+                    <label> area</label>
+                    <input type="number" name="area" id="area1" class="form-control">
+                    <label> population</label>
+                    <input type="number" name="population" id="population1" class="form-control">
+                    <label> name</label>
+                    <input type="number" name="gdp" id="gdp1" class="form-control">
+                    <label> name</label>
+                    <input type="text" name="status" id="status1" class="form-control">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="delete()"> delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let city=document.getElementById("list");
+
+    let addForm=document.getElementById("addForm");
+    let editForm=document.getElementById("editForm");
+    let countryselect=document.getElementById("countryId");
+    let countryselectEdit=document.getElementById("countryId1");
+    let countryselectdelete=document.getElementById("countryId2");
+    let deleteForm=document.getElementById("deleteForm");
+
+    loaddataCity()
+    function loaddataCity() {
+        $.ajax({
+            type: "GET",
+            url:"http://localhost:8080/api/citys",
+            success: function (list) {
+                loadtable(list);
+            }
+        })
+    }
+
+    function loadtable(list){
+        let str= "";
+        for(let i=0;i<list.length; i++){
+            console.log(list[i].name)
+            str+=`<tr>
+                    <th scope="row">${i+1}</th>
+                    <td>${list[i].name}</td>
+                    <td>${list[i].country.name}</td>
+                    <td>${list[i].area}</td>
+                     <td>${list[i].population}</td>
+                  <td>${list[i].gdp}</td>
+                   <td>${list[i].status}</td>
+                    <td><button class="btn btn-primary" onclick="showEdit(${list[i].id})" >EDIT</button></td>
+                    <td><button class="btn btn-primary" onclick="showdelete(${list[i].id})" >DELETE</button></td>
+                </tr>`
+        }
+        city.innerHTML=str;
+    }
+    function showAddForm(){
+        $('#exampleModal').modal('show');
+        $.ajax({
+            type: "GET",
+            url:"http://localhost:8080/api/citys",
+
+            success: function (list) {
+                let str="";
+                for (let i=0; i<list.length;i++){
+                    str+=`<option value="${list[i].id}">${list[i].country.name}</option>`
+                }
+                countryselect.innerHTML=str;
+            }
+        })
+    }
+    function save(){
+        let formData=new FormData(addForm)
+        let cityz={
+            name: formData.get("name"),
+            country:{
+                id: formData.get("countryId")
+            },
+            area:formData.get("area"),
+            population:formData.get("population"),
+            gdp:formData.get("gdp"),
+            status:formData.get("status")
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(cityz),
+            //tên API
+            url: "http://localhost:8080/api/citys",
+            //xử lý khi thành công
+            success: function () {
+                loaddataCity()
+                $('#exampleModal').modal('hide');
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+    function showEdit(id){
+        $('#exampleModal1').modal('show');
+        let formData=new FormData(editForm)
+        $.ajax({
+            type: "GET",
+            url:"http://localhost:8080/api/citys/"+id,
+            success: function (data) {
+                document.getElementById("id").value = data.id;
+                document.getElementById("name").value = data.name;
+                document.getElementById("area").value = data.area;
+                document.getElementById("population").value = data.population;
+                document.getElementById("gdp").value = data.gdp;
+                document.getElementById("status").value = data.status;
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8080/api/citys",
+
+                    success: function (list) {
+                        let str = "";
+                        for (let i = 0; i < list.length; i++) {
+                            str += `<option value="${list[i].id}">${list[i].country.name}</option>`
+                        }
+                        countryselectEdit.innerHTML = str;
+                    }
+                })
+            }
+        })
+    }
+    function update(){
+        let id=document.getElementById("id").value;
+        let formData=new FormData(editForm)
+        let cityz={
+            name: formData.get("name"),
+            country:{
+                id: formData.get("countryId")
+            },
+            area:formData.get("area"),
+            population:formData.get("population"),
+            gdp:formData.get("gdp"),
+            status:formData.get("status")
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            data: JSON.stringify(cityz),
+            //tên API
+            url: "http://localhost:8080/api/citys/"+id,
+            //xử lý khi thành công
+            success: function () {
+                loaddataCity()
+                $('#exampleModal1').modal('hide');
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
